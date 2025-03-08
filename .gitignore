@@ -1,0 +1,33 @@
+# ⚡ Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# ⚡ Next.js
+.next/
+out/
+
+# ⚡ Docker
+docker-compose.override.yml
+docker-compose.override.yaml
+docker-compose.dev.yml
+docker-compose.dev.yaml
+mysql_data/
+
+# ⚡ Logs y Dependencias
+logs/
+*.log
+logs/*.log
+*.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# ⚡ IDEs y Configuración de Sistemas Operativos
+.DS_Store
+.vscode/
+.idea/
+*.swp

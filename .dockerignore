@@ -1,0 +1,40 @@
+# Ignora dependencias de Node.js
+node_modules
+
+# Ignora archivos de compilación de Next.js
+.next
+
+# Ignora archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+
+# Ignora archivos de Git
+.git
+.gitignore
+
+# Ignora logs innecesarios
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignora caches de npm y yarn
+.npm
+.yarn
+.pnpm-store
+
+# Ignora configuraciones de editores de código
+.vscode/
+.idea/
+.DS_Store
+
+# Ignora archivos de compilación y pruebas
+dist
+out
+coverage
+
+# Ignora archivos de configuración innecesarios
+.dockerignore
+docker-compose.override.yml
