@@ -18,6 +18,9 @@ RUN --mount=type=secret,id=npm_token \
 COPY tsconfig*.json $DIR
 COPY src $DIR/src
 
+# Optimización: Usa Turbopack por defecto
+ENV NEXT_DEV_TURBOPACK=1
+
 EXPOSE $PORT
 
 # Comando para iniciar en modo desarrollo, forzando que Next.js escuche en 0.0.0.0
