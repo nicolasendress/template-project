@@ -4,30 +4,30 @@ services:
   # === MySQL Service ===
   mysql:
     image: mysql:8.0
-    container_name: databse_d
-    restart: unless-stopped
+    container_name: database_d
+    restart: no
     env_file:
-      - .env
+      - .env  # Asegúrate de tener las variables de entorno necesarias en .env
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql  # Persistencia de datos de MySQL
     ports:
-      - "3306:3306"
+      - "3306:3306"  # Puerto para acceder a MySQL desde el host
 
   # === Next.js en Producción ===
   d_next_prod:
     container_name: d_next_prod
     build:
       context: .
-      target: production
+      target: production  # Usa la etapa "production" definida en el Dockerfile
     ports:
-      - "3000:3000"
+      - "4000:4000"  # Exposición del puerto de producción
     depends_on:
-      - mysql
+      - mysql  # Asegura que MySQL esté disponible antes de Next.js
 
   # === Next.js en Desarrollo ===
   d_next_dev:
@@ -35,25 +35,25 @@ services:
     restart: unless-stopped
     build:
       context: .
-      target: development
+      target: development  # Usa la etapa "development" definida en el Dockerfile
       args:
         - PORT=${PORT}
     ports:
-      - "3001:3000" # Mapea el puerto 3000 del contenedor al 3001 del host
-      - "9229:9229"
+      - "${PORT}:${PORT}"  # Puerto para acceder a Next.js en desarrollo
+      - "9229:9229"  # Mapea el puerto 9229 para depuración en modo desarrollo
     env_file:
-      - .env
+      - .env  # Asegúrate de que el contenedor de desarrollo tenga las variables correctas
     environment:
-      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_USEPOLLING=true  # Para la detección de cambios en el contenedor
       - WATCHPACK_POLLING=true
-      - CHOKIDAR_INTERVAL=0.01
-      - HOST=0.0.0.0
+      - NEXT_WEBPACK_USEPOLLING=1
+      - HOST=0.0.0.0  # Asegura que Next.js se ejecute en todas las interfaces de red
     volumes:
-      - .:/app
-      - node_modules:/app/node_modules
+      - .:/app  # Monta el directorio de tu proyecto dentro del contenedor (incluye next.config.ts)
+      - /app/node_modules  # Evita que se sobrescriban los node_modules
     depends_on:
-      - mysql
+      - mysql  # Asegura que MySQL esté disponible antes de Next.js
 
 volumes:
-  node_modules:
-  mysql_data:
+  node_modules:  # Volumen para node_modules, persistente entre reinicios
+  mysql_data:  # Volumen para persistencia de datos de MySQL
