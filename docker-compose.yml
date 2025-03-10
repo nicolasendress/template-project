@@ -25,7 +25,7 @@ services:
       context: .
       target: production  # Usa la etapa "production" definida en el Dockerfile
     ports:
-      - "4000:4000"  # Exposición del puerto de producción
+      - "3000:3000"  # Exposición del puerto de producción
     depends_on:
       - mysql  # Asegura que MySQL esté disponible antes de Next.js
 

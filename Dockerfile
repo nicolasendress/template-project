@@ -25,7 +25,7 @@ COPY src $DIR/src
 ENV NEXT_DEV_TURBOPACK=1
 
 # Expone el puerto para que se pueda acceder desde fuera del contenedor
-EXPOSE 4001
+EXPOSE $PORT
 
 # Define el comando para iniciar el servidor de desarrollo en Next.js
 CMD ["npm", "run", "start:dev", "--", "-H", "0.0.0.0"]
@@ -58,7 +58,7 @@ COPY --from=build $DIR/node_modules $DIR/node_modules
 COPY --from=build $DIR/.next $DIR/.next
 
 ENV NODE_ENV=production
-EXPOSE 4000
+EXPOSE $PORT
 USER $USER
 
 CMD ["dumb-init", "npm", "run", "start"]
